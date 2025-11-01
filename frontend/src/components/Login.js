@@ -17,12 +17,20 @@ export default function Login({ onLogin }){
   };
 
   return (
-    <div className="card">
-      <h2>Admin Login</h2>
-      <div className="input"><label>Username</label><input value={user} onChange={e=>setUser(e.target.value)} /></div>
-      <div className="input"><label>Password</label><input type="password" value={pass} onChange={e=>setPass(e.target.value)} /></div>
-      <button className="btn" onClick={submit}>Login</button>
-      {err && <div className="small" style={{marginTop:8,color:'#ffdddd'}}>{err}</div>}
+    <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl text-white w-full">
+      <h2 className="text-xl font-semibold">Admin Login</h2>
+      <div className="mt-4">
+        <div className="mb-3">
+          <label className="text-sm text-white/90 block mb-1">Username</label>
+          <input className="w-full p-2 rounded-md bg-white text-gray-900 placeholder-gray-500" value={user} onChange={e=>setUser(e.target.value)} />
+        </div>
+        <div className="mb-3">
+          <label className="text-sm text-white/90 block mb-1">Password</label>
+          <input className="w-full p-2 rounded-md bg-white text-gray-900 placeholder-gray-500" type="password" value={pass} onChange={e=>setPass(e.target.value)} />
+        </div>
+        <button className="px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 text-white" onClick={submit}>Login</button>
+  {err && <div className="text-sm mt-2 text-red-200">{err}</div>}
+      </div>
     </div>
   );
 }

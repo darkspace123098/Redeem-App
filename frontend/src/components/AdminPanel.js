@@ -42,48 +42,69 @@ export default function AdminPanel({ token, onLogout }){
   };
 
   return (
-    <div>
-      <div className="card">
-        <h2>Admin Panel</h2>
-        <div style={{display:'flex', gap:10}}>
-          <textarea placeholder="One code per line or comma separated" value={newCodes} onChange={e=>setNewCodes(e.target.value)} style={{flex:1,height:100}} />
-          <div style={{display:'flex',flexDirection:'column',gap:10}}>
-            <button className="btn" onClick={submitCodes}>Add Codes</button>
-            <button className="btn" onClick={()=>{ axios.post('http://localhost:5000/api/admin/seed', {}, authHeader).then(()=>fetchData()); }}>Seed Sample</button>
-            <button className="btn" onClick={()=>{ localStorage.removeItem('adminToken'); onLogout(); }}>Logout</button>
+    <div className="w-full">
+      <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl text-white w-full">
+        <h2 className="text-xl font-semibold">Admin Panel</h2>
+        <div className="flex gap-4 mt-4">
+          <textarea
+            placeholder="One code per line or comma separated"
+            value={newCodes}
+            onChange={e=>setNewCodes(e.target.value)}
+            className="flex-1 h-24 p-3 rounded-md bg-white text-gray-900 placeholder-gray-500"
+          />
+          <div className="flex flex-col gap-3">
+            <button className="px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 text-white" onClick={submitCodes}>Add Codes</button>
+            <button className="px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 text-white" onClick={()=>{ axios.post('http://localhost:5000/api/admin/seed', {}, authHeader).then(()=>fetchData()); }}>Seed Sample</button>
+            <button className="px-4 py-2 rounded-md bg-red-500/80 hover:bg-red-500 text-white" onClick={()=>{ localStorage.removeItem('adminToken'); onLogout(); }}>Logout</button>
           </div>
         </div>
-        {msg && <div className="small">{msg}</div>}
+  {msg && <div className="text-sm text-white/80 mt-3">{msg}</div>}
       </div>
 
-      <div className="card" style={{marginTop:12}}>
-        <h3>Codes</h3>
-        <table className="table">
-          <thead><tr><th>Code</th><th>Used</th><th>Action</th></tr></thead>
-          <tbody>
-            {codes.map(c=>(
+      <div className="bg-white/8 backdrop-blur-md p-6 rounded-xl text-white w-full mt-4">
+        <h3 className="text-lg font-medium">Codes</h3>
+        <table className="min-w-full divide-y divide-white/10 mt-3">
+          <thead>
+            <tr>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Code</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Used</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Action</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/10">
+            {codes.map(c=> (
               <tr key={c._id}>
-                <td>{c.code}</td>
-                <td>{c.isUsed ? (c.redeemedAt ? new Date(c.redeemedAt).toLocaleString() : 'Yes') : 'No'}</td>
-                <td><button className="btn" onClick={()=>toggleUsed(c._id, c.isUsed)}>{c.isUsed ? 'Mark Unused' : 'Mark Used'}</button></td>
+                <td className="py-2 text-sm text-white">{c.code}</td>
+                <td className="py-2 text-sm text-white">{c.isUsed ? (c.redeemedAt ? new Date(c.redeemedAt).toLocaleString() : 'Yes') : 'No'}</td>
+                <td className="py-2 text-sm">
+                  <button className="px-3 py-1 rounded-md bg-white/20 hover:bg-white/30 text-white" onClick={()=>toggleUsed(c._id, c.isUsed)}>{c.isUsed ? 'Mark Unused' : 'Mark Used'}</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="card" style={{marginTop:12}}>
-        <h3>Redemptions</h3>
-        <table className="table">
-          <thead><tr><th>Name</th><th>Phone</th><th>Code</th><th>Reward</th><th>Date</th></tr></thead>
-          <tbody>
-            {reds.map(r=>(
+      <div className="bg-white/8 backdrop-blur-md p-6 rounded-xl text-white w-full mt-4">
+        <h3 className="text-lg font-medium">Redemptions</h3>
+        <table className="min-w-full divide-y divide-white/10 mt-3">
+          <thead>
+            <tr>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Name</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Phone</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Code</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Reward</th>
+              <th className="py-2 text-left text-sm font-medium text-white/90">Date</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/10">
+            {reds.map(r=> (
               <tr key={r._id}>
-                <td>{r.name}</td>
-                <td>{r.phone}</td>
-                <td>{r.code}</td>
-                <td>{r.reward}</td>
-                <td>{new Date(r.date).toLocaleString()}</td>
+                <td className="py-2 text-sm text-white">{r.name}</td>
+                <td className="py-2 text-sm text-white">{r.phone}</td>
+                <td className="py-2 text-sm text-white">{r.code}</td>
+                <td className="py-2 text-sm text-white">{r.reward}</td>
+                <td className="py-2 text-sm text-white">{new Date(r.date).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

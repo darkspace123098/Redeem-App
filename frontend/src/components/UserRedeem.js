@@ -20,22 +20,26 @@ export default function UserRedeem(){
   };
 
   return (
-    <div className="card">
-      <h2>🎯 Redeem (User)</h2>
-      <div className="input">
-        <label>Name</label>
-        <input value={name} onChange={e=>setName(e.target.value)} placeholder="Full name" />
+    <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl text-white w-full">
+      <h2 className="text-xl font-semibold">🎯 Redeem (User)</h2>
+      <div className="mt-4 space-y-3">
+        <div>
+          <label className="text-sm text-white/90 block mb-1">Name</label>
+          <input className="w-full p-2 rounded-md bg-white text-gray-900 placeholder-gray-500" value={name} onChange={e=>setName(e.target.value)} placeholder="Full name" />
+        </div>
+        <div>
+          <label className="text-sm text-white/90 block mb-1">Phone</label>
+          <input className="w-full p-2 rounded-md bg-white text-gray-900 placeholder-gray-500" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Phone number" />
+        </div>
+        <div>
+          <label className="text-sm text-white/90 block mb-1">Redeem Code</label>
+          <input className="w-full p-2 rounded-md bg-white text-gray-900 placeholder-gray-500" value={code} onChange={e=>setCode(e.target.value.toUpperCase())} placeholder="CODE-XXXX-XXXX" />
+        </div>
       </div>
-      <div className="input">
-        <label>Phone</label>
-        <input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="Phone number" />
+      <div className="mt-4">
+        <button className="px-4 py-2 rounded-md bg-white/20 hover:bg-white/30 text-white" onClick={handleRedeem}>Redeem</button>
       </div>
-      <div className="input">
-        <label>Redeem Code</label>
-        <input value={code} onChange={e=>setCode(e.target.value.toUpperCase())} placeholder="CODE-XXXX-XXXX" />
-      </div>
-      <button className="btn" onClick={handleRedeem}>Redeem</button>
-      {result && <div className="small" style={{marginTop:10}}>{result}</div>}
+  {result && <div className="text-sm text-white/80 mt-3">{result}</div>}
     </div>
   );
 }
